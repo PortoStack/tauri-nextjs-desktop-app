@@ -29,7 +29,7 @@ RUN npm install
 COPY src-tauri/Cargo.* ./src-tauri/
 COPY . .
 
-RUN npx tauri build
+RUN npx tauri build --no-bundle
 
 # ==========================================
 # Stage 2: Runtime สำหรับรันขึ้นจอจริง
@@ -52,7 +52,7 @@ RUN apt-get update -o Acquire::Check-Valid-Until=false && \
 WORKDIR /app
 
 # คัดลอก Binary ตัวสำเร็จ (ตรวจดูให้แน่ใจว่าชื่อไฟล์ตรงกับ package name ใน src-tauri/Cargo.toml)
-COPY --from=builder /app/src-tauri/target/release/medbot-gui /app/medbot-gui
+COPY --from=builder /app/src-tauri/target/release/app /app/medbot-gui
 RUN chmod +x /app/medbot-gui
 
 CMD ["/app/medbot-gui"]

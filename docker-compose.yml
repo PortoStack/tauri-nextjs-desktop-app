@@ -9,12 +9,15 @@ services:
     network_mode: host
     environment:
       - DISPLAY=:0
-      - WEBKIT_DISABLE_COMPOSITING_MODE=1
       - GDK_BACKEND=x11
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - /home/pi/.Xauthority:/root/.Xauthority:ro
+      - WEBKIT_FORCE_COMPOSITING_MODE=1
+      - MESA_GL_VERSION_OVERRIDE=3.1
+      - MESA_GLES_VERSION_OVERRIDE=3.1
     devices:
       - /dev/dri:/dev/dri
+      - /dev/vchiq:/dev/vchiq
+    group_add:
+      - video
+      - render
     privileged: true
     restart: always
