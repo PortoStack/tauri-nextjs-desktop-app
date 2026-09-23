@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  medbot_gui:
+    build:
+      context: .
+      dockerfile: Dockerfile.gui
+    container_name: medbot_gui
+    network_mode: host
+    environment:
+      - DISPLAY=:0
+      - WEBKIT_DISABLE_COMPOSITING_MODE=1
+      - GDK_BACKEND=x11
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /home/pi/.Xauthority:/root/.Xauthority:ro
+    devices:
+      - /dev/dri:/dev/dri
+    privileged: true
+    restart: always
